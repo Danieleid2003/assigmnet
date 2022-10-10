@@ -1,0 +1,118 @@
+#include <stdio.h>
+#define SIZE 10 
+void printArray(int a[]) {
+	printf("%s %4s\n", "Index", "Value");
+	for (int i = 0;i < SIZE;i++) {
+	printf("%5u %5d\n", i, a[i]);
+	}
+}
+
+void arrayHistogram(int a[]) {
+	printf("%s %6s %6s\n", "Value", "Frequency", "Histogram");
+	int one_counter = 0, two_counter = 0, three_counter = 0;
+	for (int i = 0;i < SIZE;i++) {
+		switch (a[i])
+		{
+		case 1: one_counter++;
+			break;
+		case 2: two_counter++;
+			break;
+		case 3:three_counter++;
+			break;
+		default:
+			break;
+		}
+	}
+	printf("%5d %9d ", 1, one_counter); printStars(one_counter);
+	printf("%5d %9d ", 2, two_counter);printStars(two_counter);
+	printf("%5d %9d ", 3, three_counter ); printStars(three_counter);
+	
+}
+int printStars(int a) {
+	for (int i = 0; i < a;i++) {
+		printf("%s", "*");
+	}
+	printf("\n");
+}
+void swapValues(int a[], int i, int j) {
+	//printArray(a);
+	int temp = a[i];
+	a[i] = a[j];
+	a[j] = temp;
+	//printArray(a);
+}
+void bubblesort(int a[]) {
+	//printArray(a);
+	for (int i = 0;i < SIZE;i++) {
+		for (int j = i+1; j <SIZE;j++) {
+			if (a[i] > a[j]) {
+				swapValues(a, i, j);
+				//printArray(a);
+			}
+
+		}
+	}
+	//printArray(a);
+}
+int median(int a[]) {
+	bubblesort(a);
+	int sum = 0;
+	//printArray(a);
+	if (SIZE %2 == 0) {
+		sum = (a[SIZE/2] + a[(SIZE + 1) / 2]) / 2;
+	}
+	else {
+		sum = a[SIZE / 2];
+	}
+	return sum;
+}
+int mode(int a[]) {
+	int one_counter = 0, two_counter = 0, three_counter = 0;
+	for (int i = 0;i < SIZE;i++) {
+		switch (a[i])
+		{
+		case 1: one_counter++;
+			break;
+		case 2: two_counter++;
+			break;
+		case 3:three_counter++;
+			break;
+		default:
+			break;
+		}
+	}
+	if (one_counter > two_counter  && one_counter > three_counter) {
+		return 1;
+	}
+	if (two_counter > one_counter && two_counter> three_counter) {
+		return 2;
+	}
+	if (three_counter > two_counter && three_counter> one_counter) {
+		return 3;
+	}
+
+}
+int isSorted(int a[], int size) {
+	printArray(a);
+	for (int i = 0;i < SIZE;i++) {
+		for (int j = i + 1; j < SIZE;j++) {
+			if (a[i] > a[j]) {
+				return 0;
+			}
+
+		}
+	}
+	return 1;
+}
+ main() {
+	int array[] = {1,2,3,1,2,3,1,2,3,1};
+	//printArray(array);
+	arrayHistogram(array);
+	//swapValues(array, 1, 2);
+	//bubblesort(array);
+	//printf("%d", median(array));
+	//printf("%d", mode(array));
+	//printf("%d", isSorted(array, SIZE));
+	return 0;
+
+}
